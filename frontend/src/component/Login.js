@@ -1,6 +1,10 @@
 import React, { useState } from "react";
 import Navbar from "./navbar";
 import './Style.css'
+import { useNavigate } from 'react-router-dom';
+import axios from "axios";
+
+// const server = 'localhost:8080/api'
 
 export default function Login(){
 
@@ -9,19 +13,46 @@ export default function Login(){
         password:'',
     });
 
+    let navigate = useNavigate ();
+
     const handleChange = (event) => {
         setValues({
             ...values,
             [event.target.name]: event.target.value,
         })
     };
-    const handleFormSubmit =(event) => {
+    const handleFormSubmit =  async (event) => {
         event.preventDefault();
-        setErrors(validation(values));
+        let er=validation(values)
+        console.log("in handle forms: " + values)
+        if(er.hasOwnProperty('username') || er.hasOwnProperty('password'))
+        {
+            console.log('er is true')
+            setErrors(er);
+            return;
+        }
+        console.log('No error')
+       
+        try {
+            const resp = await axios.post('http://localhost:8080/api/auth/login', {
+                'username' : values.username,
+                'password': values.password,
+            })
+            localStorage.setItem('jwt', resp.data.tokenType + resp.data.accessToken)
+            console.log(localStorage.getItem('jwt'))
+            console.log(resp.status)
+            navigate('/newaccount')
+        } catch (error) {
+            console.log(error)
+            if(error.response.status) setErrors({password: 'wrong password'})
+        }
+        // axios.post
+
     };
 
     const validation = (values) => {
         let errors = {};
+    
         if(!values.username){
             errors.username="Username is required"
         }
@@ -30,11 +61,15 @@ export default function Login(){
         } else if(values.password.length < 6){
             errors.password='Passwords must be more than 6 characters.'
         }
+    
 
         return errors;
     };
 
     const [errors, setErrors] = useState({});
+    const [vaild, setValid] = useState(false);
+    const [cusername,setCusername ] = useState("srijarko");
+    const[password,setPassword]=useState("unlucky")
 
     return(
         <>
