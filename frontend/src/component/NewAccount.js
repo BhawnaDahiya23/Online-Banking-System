@@ -12,7 +12,11 @@ export default function NewAccount(){
             <h1>Open a New Account</h1>
                 <div>
                 <label>Account type:</label>
-                <input type="text" name="account_type"/>
+                <select name="acc_type" id="acc_type">
+                    <option value="Saving">Saving</option>
+                    <option value="Salary">Salary</option>
+                    <option value="Current">Current</option>
+                </select>
                 </div>
                 <div>
                 <label>Balance:</label>
@@ -25,17 +29,31 @@ export default function NewAccount(){
                 <div>
                 <label>Last Name:</label>
                 <input type="text" name="Last_name"/>
-                </div>
-                <div>
-                <label>Account type:</label>
-                <input type="text" name="account_type"/>
-                </div>
-                
+                </div> 
                 <div>
                 <label>Aadhar Card Number:</label>
                 <input type="number" name="aadhar_number"/>
                 </div>
-                
+                <div>
+                <label>Address</label>
+                <input type="text" name="address"/>
+                </div>
+                <div>
+                <label>Occupation</label>
+                <input type="text" name="Occupation"/>
+                </div>
+                <div>
+                <label>Mobile No:</label>
+                <input type="text" name="mobile"/>
+                </div> 
+                <div>
+                <label>Email ID:</label>
+                <input type="text" name="email"/>
+                </div>
+                <div>
+                <label>Date of Birth</label>
+                <input type="date" name="dob"/>
+                </div>
                 <div>
                     <button>Submit</button>
                 </div>
