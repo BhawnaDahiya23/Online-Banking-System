@@ -1,10 +1,12 @@
 import React, {useState} from "react";
 import Navbar from "./navbar";
 import './Style.css'
+import { useNavigate } from 'react-router-dom';
+import axios from "axios";
 
 export default function Register(){
     const [values, setValues] = useState({
-        account_number:'',
+        username:'',
         set_login_password:'',
         confirm_login_password:'',
     });
@@ -14,25 +16,49 @@ export default function Register(){
             [event.target.name]: event.target.value,
         })
     };
-    const handleFormSubmit =(event) => {
+    let navigate=useNavigate()
+    const handleFormSubmit =  async (event) => {
         event.preventDefault();
-        setErrors(validation(values));
+        let er=validation(values)
+        console.log("in handle forms: " + values)
+        if(er.hasOwnProperty('username') || er.hasOwnProperty('confirm_login_password'))
+        {
+            console.log('er is true')
+            setErrors(er);
+            return;
+        }
+        console.log('No error')
+       
+        try {
+            const resp = await axios.post('http://localhost:8080/api/auth/register', {
+                'username' : values.username,
+                'password': values.confirm_login_password,
+            })
+            // localStorage.setItem('jwt', resp.data.tokenType + resp.data.accessToken)
+            // console.log(localStorage.getItem('jwt'))
+            // console.log(resp.status)
+            console.log(resp.data)
+            navigate('/newaccount')
+        } catch (error) {
+            console.log(error)
+            if(error.response.status === 400) setErrors({username: 'Username already exists'})
+        }
+        // axios.post
+
     };
     const validation = (values) => {
         let errors = {};
-        if(!values.account_number){
-            errors.account_number="Account number is required"
-        }else if(values.account_number.length < 12){
-            errors.account_number="Invalid account number"
-        }
-        if(!values.set_login_password){
-            errors.set_login_password="password is required"
-        } else if(values.set_login_password.length < 6){
-            errors.set_login_password='Passwords must be more than 6 characters.'
+        if(!values.username){
+            errors.username="Username is required"
+        }else if(values.username.length < 4){
+            errors.username="Invalid Username"
         }
         if(!values.confirm_login_password){
-            errors.confirm_login_password="password confirmation is required"
-        } else if(values.confirm_login_password !== values.set_login_password){
+            errors.confirm_login_password="password is required"
+        } else if(values.confirm_login_password.length < 6){
+            errors.confirm_login_password='Passwords must be more than 6 characters.'
+        }
+         else if(values.confirm_login_password !== values.set_login_password){
             errors.confirm_login_password='Password is incorrect'
         }
 
@@ -47,14 +73,14 @@ export default function Register(){
             <form>
             <h1>Registeration Form</h1>
                 <div>
-                <label>Account Number:</label>
-                <input type="text" name="account_number" value={values.account_number} onChange={handleChange}/>
-                {errors.account_number && <p className="error">{errors.account_number}</p>}
+                <label>Username</label>
+                <input type="text" name="username" value={values.username} onChange={handleChange}/>
+                {errors.username && <p className="error">{errors.username}</p>}
                 </div>
                 <div>
                 <label>Set Login Password:</label>
                 <input type="password" name="set_login_password" value={values.set_login_password} onChange={handleChange}/>
-                {errors.set_login_password && <p className="error">{errors.set_login_password}</p>}
+                {/* {errors.confirm_login_password && <p className="error">{errors.confirm_login_password}</p>} */}
                 </div>
                 <div>
                 <label>Confirm Login Password:</label>
