@@ -43,7 +43,7 @@ export default function NewAccount(){
         console.log(values)
         console.log(userToken)
         try {
-            const resp = await axios.post('http://localhost:8080/api/account/saveAccount', values,{headers:{'Authorization':`${userToken}`}})
+            const resp = await axios.post('http://localhost:8080/api/account/saveAccount', values,{headers:{'Authorization':`${userToken}`,"Access-Control-Allow-Origin": "*"}})
             console.log(resp)
             navigate('/dashboard')
         } catch (error) {

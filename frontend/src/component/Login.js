@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import Navbar from "./navbar";
 import './Style.css'
 import { useNavigate } from 'react-router-dom';
@@ -12,6 +12,7 @@ export default function Login(){
         username:'',
         password:'',
     });
+    const[userToken,setUserToken]=useState("")
 
     let navigate = useNavigate ();
 
@@ -21,6 +22,16 @@ export default function Login(){
             [event.target.name]: event.target.value,
         })
     };
+
+    useEffect(() => {
+        if(localStorage.getItem('jwt')!== null)
+        {
+            navigate('/newaccount')
+        }
+      
+      
+    }, [])
+    
     const handleFormSubmit =  async (event) => {
         event.preventDefault();
         let er=validation(values)

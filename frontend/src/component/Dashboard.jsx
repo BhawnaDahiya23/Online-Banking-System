@@ -10,21 +10,27 @@ const items = [
   {
     header: 'Check Account Balance',
     description:
-      'Leverage agile frameworks to provide a robust synopsis for high level overviews.',
+      '',
     meta: 'Check Balance',
   },
   {
     header: 'Show Transaction',
     description:
-      'Bring to the table win-win survival strategies to ensure proactive domination.',
-    meta: 'Past 6 Transaction',
+     '',
+    meta: 'Past  Transactions',
   },
   {
     header: 'History',
     description:
-      'Capitalise on low hanging fruit to identify a ballpark value added activity to beta test.',
-    meta: 'Last 7 site',
+      '',
+    meta: 'See your History',
   },
+  {
+    header: 'Apply for Internet Banking',
+    description:
+      '',
+    meta: 'Net Banking',
+  }
 ]
 
 

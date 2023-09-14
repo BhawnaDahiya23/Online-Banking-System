@@ -71,7 +71,7 @@ export default function Register(){
         <div><Navbar/></div>
         <div className="form">
             <form>
-            <h1>Registeration Form</h1>
+            <h1>Registration Form</h1>
                 <div>
                 <label>Username</label>
                 <input type="text" name="username" value={values.username} onChange={handleChange}/>
