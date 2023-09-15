@@ -5,41 +5,26 @@ import { useNavigate } from 'react-router-dom';
 import axios from "axios";
 import 'semantic-ui-css/semantic.min.css'
 import { Card } from 'semantic-ui-react'
+import BasicCard from "./BasicCard";
+import BasicCard2 from "./BasicCard2";
+import BasicCard3 from "./BasicCard3";
+import BasicCard4 from "./BasicCard4";
+import {Box,IconButton,Typography} from "@mui/material";
+import PaymentsIcon from '@mui/icons-material/Payments';
 
-const items = [
-  {
-    header: 'Check Account Balance',
-    description:
-      '',
-    meta: 'Check Balance',
-  },
-  {
-    header: 'Show Transaction',
-    description:
-     '',
-    meta: 'Past  Transactions',
-  },
-  {
-    header: 'History',
-    description:
-      '',
-    meta: 'See your History',
-  },
-  {
-    header: 'Apply for Internet Banking',
-    description:
-      '',
-    meta: 'Net Banking',
-  }
-]
+
 
 
 export default function Dashboard  () {
   return (
     <>
     <div><Navbar/></div>
-    <div className="form">
-    <Card.Group items={items} />
+    <div className="dashboard">
+    <BasicCard />
+    <BasicCard2/>
+    <BasicCard3/>
+    <BasicCard4/>
+   
     </div>
     </>
   )
