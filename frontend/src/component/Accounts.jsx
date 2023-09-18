@@ -1,11 +1,50 @@
-import React from 'react';
+import React,{useEffect,useState} from 'react';
 import { Icon, Table ,Button} from 'semantic-ui-react';
 import 'semantic-ui-css/semantic.min.css'
 import { Container } from 'semantic-ui-react'
 import './transactions.css'
 import Navbar from "./navbar";
+import { useNavigate } from 'react-router-dom';
+import axios from "axios";
 
 const Accounts = () => {
+  const[userToken,setUserToken]=useState("");
+  const[accounts,setAccounts]=useState([])
+
+
+  
+let navigate=useNavigate();
+  useEffect(() => {
+    if(localStorage.getItem('jwt')=== null)
+    {
+        navigate('/login')
+    }
+    else{
+        setUserToken(localStorage.getItem('jwt'))
+    }  
+        
+}, [])
+
+useEffect(() => {
+  const getaccounts = async()=>{
+
+    try {
+      const resp = await axios.get('http://localhost:8080/api/account/viewAccounts',{headers:{'Authorization':`${userToken}`}})
+      console.log(resp.data)
+      setAccounts(resp.data)
+      console.log(accounts)
+      
+  } catch (error) {
+      console.log(error)
+  }
+  
+  }
+  getaccounts();
+}, [userToken])
+
+
+
+
   return ( 
     <div>
         <Navbar/>
@@ -22,46 +61,20 @@ const Accounts = () => {
     </Table.Header>
 
     <Table.Body>
-      <Table.Row>
-        <Table.Cell>5436278111</Table.Cell>
-        <Table.Cell>₹100000</Table.Cell>
-        <Table.Cell >Savings</Table.Cell>
-        <Table.Cell><Button icon labelPosition='right'>
-      View
-      <Icon name='right arrow' />
-    </Button></Table.Cell>
-       
-      </Table.Row>
-      <Table.Row>
-        <Table.Cell>5436278111</Table.Cell>
-        <Table.Cell>₹100000</Table.Cell>
-        <Table.Cell >Savings</Table.Cell>
-        <Table.Cell><Button icon labelPosition='right'>
-      View
-      <Icon name='right arrow' />
-    </Button></Table.Cell>
-       
-      </Table.Row>
-      <Table.Row>
-        <Table.Cell>5436278111</Table.Cell>
-        <Table.Cell>₹100000</Table.Cell>
-        <Table.Cell >Savings</Table.Cell>
-        <Table.Cell><Button icon labelPosition='right'>
-      View
-      <Icon name='right arrow' />
-    </Button></Table.Cell>
-       
-      </Table.Row>
-      <Table.Row>
-        <Table.Cell>5436278111</Table.Cell>
-        <Table.Cell>₹100000</Table.Cell>
-        <Table.Cell >Savings</Table.Cell>
-        <Table.Cell><Button icon labelPosition='right'>
-      View
-      <Icon name='right arrow' />
-    </Button></Table.Cell>
-       
-      </Table.Row>
+    {accounts.map((account) => (
+
+<Table.Row>
+<Table.Cell>{account.account_no}</Table.Cell>
+<Table.Cell>{account.balance}</Table.Cell>
+<Table.Cell >{account.account_type}</Table.Cell>
+<Table.Cell><Button icon labelPosition='right'>
+View
+<Icon name='right arrow' />
+</Button></Table.Cell>
+
+</Table.Row>
+        
+      ))}
     </Table.Body>
   </Table>
   </Container>

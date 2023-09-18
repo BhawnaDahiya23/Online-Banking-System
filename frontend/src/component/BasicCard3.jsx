@@ -6,6 +6,7 @@ import CardContent from '@mui/material/CardContent';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import AccountBalanceIcon from '@mui/icons-material/AccountBalance';
+import { Link } from 'react-router-dom';
 
 
 const bull = (
@@ -36,7 +37,9 @@ export default function BasicCard() {
         </Typography>
       </CardContent>
       <CardActions>
+        <Link to='/accounts'>
         <Button size="small">View</Button>
+        </Link>
       </CardActions>
     </Card>
   );
