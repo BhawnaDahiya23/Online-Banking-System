@@ -9,6 +9,7 @@ import Dashboard from './component/Dashboard';
 import Transactions from './component/Transactions';
 import Login2 from './component/Login2';
 import Accounts from './component/Accounts';
+import PerformTransaction from './component/PerformTransaction'
 
 
 export default function App(){
@@ -23,6 +24,7 @@ export default function App(){
           <Route path='/dashboard' element={<Dashboard/>}/>
           <Route path='/transaction' element={<Transactions/>}/>
           <Route path='/accounts' element={<Accounts/>}/>
+          <Route path='/performTransaction' element={<PerformTransaction/>} />
         </Routes>
       </Router>
     </div>

@@ -6,7 +6,9 @@ import CardContent from '@mui/material/CardContent';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import PaidIcon from '@mui/icons-material/Paid';
-
+import { Link, useNavigate } from 'react-router-dom';
+// import {useHistory} from 'react-router-dom'
+import { useHistory } from "react-router-dom";
 
 const bull = (
   <Box
@@ -35,7 +37,8 @@ export default function BasicCard4() {
         </Typography>
       </CardContent>
       <CardActions>
-        <Button size="small">Perform</Button>
+        {/* <Button onClick={() => navigate('/')} size="small">Perform</Button> */}
+        <Link to='/performTransaction' size = "small">Perform</Link>
       </CardActions>
     </Card>
   );
