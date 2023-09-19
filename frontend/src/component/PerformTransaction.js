@@ -13,6 +13,7 @@ export default function PerformTransaction() {
     const [toAccount, setToAccount] = useState('')
     const [accountList, setAccountList] = useState([])
 
+    // const [error, setError] = useState(null)
 
 
     useEffect(() => {
@@ -28,17 +29,24 @@ export default function PerformTransaction() {
 
 
     const handleSubmit = async () => {
-        var body = {
+        try {
+            var body = {
             "from_acc" : fromAccount,
             "to_acc" : toAccount,
             "amount" : amount 
-        };
-        console.log(body); 
-        var resp = await axios.post('http://localhost:8080/api/transactions/saveTransactions', body, {
-            headers : {Authorization : localStorage.getItem('jwt')}
-        })
-        console.log(resp.data)
-        if(resp.data.status != 200) return;
+            };
+            console.log(body); 
+            var resp = await axios.post('http://localhost:8080/api/transactions/saveTransactions', body, {
+                headers : {Authorization : localStorage.getItem('jwt')}
+            })
+            console.log(resp.data)
+            alert('TRANSACTION SUCCESSFUL')
+            setAmount('')
+            setToAccount('')
+        } catch(error) {
+            alert('TRANSACTION FAILED!')
+            console.log(error)
+        }
         
     }
 

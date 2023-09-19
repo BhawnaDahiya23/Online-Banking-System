@@ -10,6 +10,7 @@ import Transactions from './component/Transactions';
 import Login2 from './component/Login2';
 import Accounts from './component/Accounts';
 import PerformTransaction from './component/PerformTransaction'
+import AllAccounts from './component/Admin/AllAccounts';
 
 
 export default function App(){
@@ -25,6 +26,7 @@ export default function App(){
           <Route path='/transaction' element={<Transactions/>}/>
           <Route path='/accounts' element={<Accounts/>}/>
           <Route path='/performTransaction' element={<PerformTransaction/>} />
+          <Route path='/admin/accounts' element={<AllAccounts />} />
         </Routes>
       </Router>
     </div>

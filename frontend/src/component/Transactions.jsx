@@ -23,7 +23,7 @@ const Transactions = () => {
       setListTransaction(translist.data);
     }
     fetchList();
-  })
+  }, [])
 
   return (
     <div>
@@ -54,93 +54,6 @@ const Transactions = () => {
         // console.log(transaction)
       ))
     }
-    
-      {/* <Table.Row>
-        <Table.Cell>1</Table.Cell>
-        <Table.Cell>₹1000</Table.Cell>
-        <Table.Cell >acc1234</Table.Cell>
-        <Table.Cell>acc3254</Table.Cell>
-        <Table.Cell positive>Done</Table.Cell>
-      </Table.Row>
-      <Table.Row>
-        <Table.Cell>1</Table.Cell>
-        <Table.Cell>₹1000</Table.Cell>
-        <Table.Cell >acc1234</Table.Cell>
-        <Table.Cell>acc3254</Table.Cell>
-        <Table.Cell positive>Done</Table.Cell>
-      </Table.Row>
-      <Table.Row>
-        <Table.Cell>1</Table.Cell>
-        <Table.Cell>₹1000</Table.Cell>
-        <Table.Cell >acc1234</Table.Cell>
-        <Table.Cell>acc3254</Table.Cell>
-        <Table.Cell positive>Done</Table.Cell>
-      </Table.Row>
-      <Table.Row>
-        <Table.Cell>1</Table.Cell>
-        <Table.Cell>₹1000</Table.Cell>
-        <Table.Cell >acc1234</Table.Cell>
-        <Table.Cell>acc3254</Table.Cell>
-        <Table.Cell positive>Done</Table.Cell>
-      </Table.Row>
-      
-      <Table.Row>
-        <Table.Cell>1</Table.Cell>
-        <Table.Cell>₹1000</Table.Cell>
-        <Table.Cell >acc1234</Table.Cell>
-        <Table.Cell>acc3254</Table.Cell>
-        <Table.Cell negative>Failed</Table.Cell>
-      </Table.Row>
-      <Table.Row>
-        <Table.Cell>1</Table.Cell>
-        <Table.Cell>₹1000</Table.Cell>
-        <Table.Cell >acc1234</Table.Cell>
-        <Table.Cell>acc3254</Table.Cell>
-        <Table.Cell negative>Failed</Table.Cell>
-      </Table.Row>
-      <Table.Row>
-        <Table.Cell>1</Table.Cell>
-        <Table.Cell>₹1000</Table.Cell>
-        <Table.Cell >acc1234</Table.Cell>
-        <Table.Cell>acc3254</Table.Cell>
-        <Table.Cell negative>Failed</Table.Cell>
-      </Table.Row>
-      <Table.Row>
-        <Table.Cell>1</Table.Cell>
-        <Table.Cell>₹1000</Table.Cell>
-        <Table.Cell >acc1234</Table.Cell>
-        <Table.Cell>acc3254</Table.Cell>
-        <Table.Cell positive>Done</Table.Cell>
-      </Table.Row>
-      <Table.Row>
-        <Table.Cell>1</Table.Cell>
-        <Table.Cell>₹1000</Table.Cell>
-        <Table.Cell >acc1234</Table.Cell>
-        <Table.Cell>acc3254</Table.Cell>
-        <Table.Cell negative>Failed</Table.Cell>
-      </Table.Row>
-      <Table.Row>
-        <Table.Cell>1</Table.Cell>
-        <Table.Cell>₹1000</Table.Cell>
-        <Table.Cell >acc1234</Table.Cell>
-        <Table.Cell>acc3254</Table.Cell>
-        <Table.Cell positive>Done</Table.Cell>
-      </Table.Row>
-    
-      <Table.Row>
-        <Table.Cell>1</Table.Cell>
-        <Table.Cell>₹1000</Table.Cell>
-        <Table.Cell >acc1234</Table.Cell>
-        <Table.Cell>acc3254</Table.Cell>
-        <Table.Cell positive>Done</Table.Cell>
-      </Table.Row>
-      <Table.Row>
-        <Table.Cell>1</Table.Cell>
-        <Table.Cell>₹1000</Table.Cell>
-        <Table.Cell >acc1234</Table.Cell>
-        <Table.Cell>acc3254</Table.Cell>
-        <Table.Cell negative>Failed</Table.Cell>
-      </Table.Row> */}
     </Table.Body>
   </Table>
   </Container>
