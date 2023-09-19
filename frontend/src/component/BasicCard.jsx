@@ -6,6 +6,7 @@ import CardContent from '@mui/material/CardContent';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import PaymentsIcon from '@mui/icons-material/Payments';
+import { Link } from 'react-router-dom';
 
 
 const bull = (
@@ -37,7 +38,9 @@ export default function BasicCard() {
         </Typography>
       </CardContent>
       <CardActions>
+      <Link to='/newaccount'>
         <Button size="small">Open</Button>
+        </Link>
       </CardActions>
     </Card>
   );

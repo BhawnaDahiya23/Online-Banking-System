@@ -6,6 +6,7 @@ import './transactions.css'
 import Navbar from "./navbar";
 import { useNavigate } from 'react-router-dom';
 import axios from "axios";
+import { Link } from 'react-router-dom';
 
 const Accounts = () => {
   const[userToken,setUserToken]=useState("");
@@ -56,7 +57,7 @@ useEffect(() => {
         <Table.HeaderCell>Account</Table.HeaderCell>
         <Table.HeaderCell>Balance</Table.HeaderCell>
         <Table.HeaderCell>Type</Table.HeaderCell>
-        <Table.HeaderCell></Table.HeaderCell>
+        <Table.HeaderCell>Transaction History</Table.HeaderCell>
       </Table.Row>
     </Table.Header>
 
@@ -65,12 +66,16 @@ useEffect(() => {
 
 <Table.Row>
 <Table.Cell>{account.account_no}</Table.Cell>
-<Table.Cell>{account.balance}</Table.Cell>
+<Table.Cell>₹{account.balance}</Table.Cell>
 <Table.Cell >{account.account_type}</Table.Cell>
-<Table.Cell><Button icon labelPosition='right'>
+<Table.Cell>
+  <Link to = {`transaction/${account.account_no}`}>
+  <Button icon labelPosition='right'>
 View
 <Icon name='right arrow' />
-</Button></Table.Cell>
+</Button>
+</Link>
+</Table.Cell>
 
 </Table.Row>
         

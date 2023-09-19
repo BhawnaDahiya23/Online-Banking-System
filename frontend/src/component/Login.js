@@ -26,7 +26,7 @@ export default function Login(){
     useEffect(() => {
         if(localStorage.getItem('jwt')!== null)
         {
-            navigate('/newaccount')
+            navigate('/dashboard')
         }
       
       

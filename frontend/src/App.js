@@ -6,6 +6,7 @@ import Login from './component/Login';
 import Register from './component/Register'
 import NewAccount from './component/NewAccount';
 import Dashboard from './component/Dashboard';
+import AdminDashboard from './component/AdminDashboard';
 import Transactions from './component/Transactions';
 import Login2 from './component/Login2';
 import Accounts from './component/Accounts';
@@ -21,7 +22,8 @@ export default function App(){
           <Route path='/register' element={<Register/>}/>
           <Route path='/newaccount' element={<NewAccount/>}/>
           <Route path='/dashboard' element={<Dashboard/>}/>
-          <Route path='/transaction' element={<Transactions/>}/>
+          <Route path='/admindashboard' element={<AdminDashboard/>}/>
+          <Route path='/accounts/transaction/:acc_no' element={<Transactions/>}/>
           <Route path='/accounts' element={<Accounts/>}/>
         </Routes>
       </Router>
