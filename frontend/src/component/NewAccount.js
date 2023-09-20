@@ -1,5 +1,5 @@
 import React,{useState,useEffect} from "react";
-import Navbar from "./navbar.js";
+import Navbar1 from "./Navbar1.js";
 import './Style.css'
 import { useNavigate } from 'react-router-dom';
 import axios from "axios";
@@ -122,7 +122,7 @@ export default function NewAccount(){
     
     return(
         <>
-        <div><Navbar/></div>
+        <div><Navbar1/></div>
         <div className="form">
             <form>
             <h1>Open a New Account</h1>

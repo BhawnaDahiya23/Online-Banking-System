@@ -3,7 +3,7 @@ import { Icon, Table ,Button} from 'semantic-ui-react';
 import 'semantic-ui-css/semantic.min.css'
 import { Container } from 'semantic-ui-react'
 import './transactions.css'
-import Navbar from "./navbar";
+import Navbar1 from "./Navbar1";
 import { useNavigate } from 'react-router-dom';
 import axios from "axios";
 import { Link } from 'react-router-dom';
@@ -30,7 +30,7 @@ useEffect(() => {
   const getaccounts = async()=>{
 
     try {
-      const resp = await axios.get('http://localhost:8080/api/account/viewAccounts',{headers:{'Authorization':`${userToken}`}})
+      const resp = await axios.get('http://localhost:8080/api/account/viewAccounts', {headers:{'Authorization':`${userToken}`}})
       console.log(resp.data)
       setAccounts(resp.data)
       console.log(accounts)
@@ -48,7 +48,7 @@ useEffect(() => {
 
   return ( 
     <div>
-        <Navbar/>
+        <Navbar1/>
         <h1 >Your Accounts</h1>
         <Container>
         <Table celled >
@@ -68,13 +68,10 @@ useEffect(() => {
 <Table.Cell>{account.account_no}</Table.Cell>
 <Table.Cell>₹{account.balance}</Table.Cell>
 <Table.Cell >{account.account_type}</Table.Cell>
-<Table.Cell>
-  <Link to = {`transaction/${account.account_no}`}>
-  <Button icon labelPosition='right'>
+<Table.Cell><Button icon labelPosition='right' onClick={() => {navigate('/transaction', {state : account.account_no})}}>
 View
 <Icon name='right arrow' />
 </Button>
-</Link>
 </Table.Cell>
 
 </Table.Row>

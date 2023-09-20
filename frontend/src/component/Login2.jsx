@@ -2,7 +2,7 @@ import React,{useState} from 'react'
 import { Form } from 'semantic-ui-react'
 import 'semantic-ui-css/semantic.min.css'
 import { Container } from 'semantic-ui-react'
-import Navbar from "./navbar";
+import Navbar1 from "./Navbar1";
 import './Style.css'
 
 export default function Login2(){
@@ -12,7 +12,7 @@ return(
 
 
 <>
-<Navbar/>
+<Navbar1/>
     <Container>
       
   <Form className='shadow'>

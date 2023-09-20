@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Navbar from "./navbar";
+import Navbar1 from "./Navbar1";
 import './dashboard.css'
 import { useNavigate } from 'react-router-dom';
 import axios from "axios";
@@ -18,7 +18,7 @@ import PaymentsIcon from '@mui/icons-material/Payments';
 export default function Dashboard  () {
   return (
     <>
-    <div><Navbar/></div>
+    <div><Navbar1/></div>
     <div className="dashboard">
     <BasicCard />
     <BasicCard2/>

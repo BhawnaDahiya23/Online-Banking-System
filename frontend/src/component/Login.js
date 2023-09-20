@@ -1,5 +1,5 @@
 import React, { useState,useEffect } from "react";
-import Navbar from "./navbar";
+import Navbar1 from "./Navbar1";
 import './Style.css'
 import { useNavigate } from 'react-router-dom';
 import axios from "axios";
@@ -52,7 +52,7 @@ export default function Login(){
             localStorage.setItem('jwt', resp.data.tokenType + resp.data.accessToken)
             console.log(localStorage.getItem('jwt'))
             console.log(resp.status)
-            navigate('/newaccount')
+            navigate('/dashboard')
         } catch (error) {
             console.log(error)
             if(error.response.status) setErrors({password: 'wrong password'})
@@ -84,7 +84,7 @@ export default function Login(){
 
     return(
         <>
-        <div><Navbar/></div>
+        <div><Navbar1/></div>
         <div className="form">
             <form >
                 <h1>Login</h1>

@@ -1,5 +1,5 @@
 import React from 'react'
-import Navbar from './navbar';
+import Navbar1 from './Navbar1';
 import { Link } from 'react-router-dom';
 
 import './Style.css'
@@ -10,7 +10,7 @@ function Home(){
     return(
         <>
         <div>
-            <Navbar/>
+            <Navbar1/>
         </div>
         <div>
             <ul>

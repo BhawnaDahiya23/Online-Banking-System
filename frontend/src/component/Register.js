@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import Navbar from "./navbar.js";
+import Navbar1 from "./Navbar1.js";
 import './Style.css'
 import { useNavigate } from 'react-router-dom';
 import axios from "axios";
@@ -68,7 +68,7 @@ export default function Register(){
     const [errors, setErrors] = useState({});
     return(
         <>
-        <div><Navbar/></div>
+        <div><Navbar1/></div>
         <div className="form">
             <form>
             <h1>Registration Form</h1>
