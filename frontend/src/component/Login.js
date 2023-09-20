@@ -23,14 +23,6 @@ export default function Login(){
         })
     };
 
-    useEffect(() => {
-        if(localStorage.getItem('jwt')!== null)
-        {
-            navigate('/dashboard')
-        }
-      
-      
-    }, [])
     
     const handleFormSubmit =  async (event) => {
         event.preventDefault();

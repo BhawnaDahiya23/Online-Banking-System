@@ -107,6 +107,8 @@ export default function NewAccount(){
             console.log(error)
         }
     };
+
+
     useEffect(() => {
         if(localStorage.getItem('jwt')=== null)
         {
@@ -181,7 +183,8 @@ export default function NewAccount(){
                 {errors.dob && <p className="error">{errors.dob}</p>}
                 </div>
                 <div>
-                    <button onClick={handleSubmit}>Submit</button>
+                    <button onClick={handleSubmit}>Submit</button> <br></br> <br></br>
+                    <button onClick={() => navigate('/dashboard')}>Skip this Section</button>
                 </div>
             </form>
         </div>

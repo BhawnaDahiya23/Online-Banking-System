@@ -26,14 +26,14 @@ export default function BasicCard() {
         <Typography variant="h1" component="div">
         <InstallMobileIcon/>
         </Typography>
-        <Typography sx={{ mb: 1.5 }} color="text.secondary">
-          adjective
-        </Typography>
         <Typography variant="body2">
         <h4>Enable Internet Banking</h4>
           <br />
-         
         </Typography>
+        <Typography sx={{ mb: 1.5 }} color="text.secondary">
+          adjective
+        </Typography>
+        
       </CardContent>
       <CardActions>
         <Button size="small">Enable</Button>
