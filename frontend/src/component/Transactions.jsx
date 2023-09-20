@@ -49,7 +49,8 @@ const Transactions = () => {
             <Table.Cell>{transaction.amount}</Table.Cell>
             <Table.Cell >{transaction.trans_time}</Table.Cell>
             <Table.Cell>{transaction.to_acc}</Table.Cell>
-            <Table.Cell positive>{transaction.status}</Table.Cell>
+            {transaction.status ? <Table.Cell positive>Successful</Table.Cell> : 
+            <Table.Cell negative>Failed</Table.Cell>}
         </Table.Row>
         // console.log(transaction)
       ))

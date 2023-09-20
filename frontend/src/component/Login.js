@@ -44,6 +44,10 @@ export default function Login(){
             localStorage.setItem('jwt', resp.data.tokenType + resp.data.accessToken)
             console.log(localStorage.getItem('jwt'))
             console.log(resp.status)
+            if(values.username == "admin"){
+                navigate('/admindashboard')
+                return;
+            }
             navigate('/dashboard')
         } catch (error) {
             console.log(error)

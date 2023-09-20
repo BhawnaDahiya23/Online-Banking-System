@@ -3,7 +3,7 @@ import { Icon, Table ,Button} from 'semantic-ui-react';
 import 'semantic-ui-css/semantic.min.css'
 import { Container } from 'semantic-ui-react'
 import '../transactions.css'
-import Navbar from "../navbar";
+import Navbar from "../AdminNavbar";
 import { useNavigate } from 'react-router-dom';
 import axios from "axios";
 
@@ -87,24 +87,26 @@ const handleDeactivate =  async (event) => {
     </Table.Header>
 
     <Table.Body>
-    {accounts.map((account) => (
+          {accounts.map((account) => (
 
-<Table.Row>
-<Table.Cell>{account.account_no}</Table.Cell>
-<Table.Cell>{account.balance}</Table.Cell>
-<Table.Cell >{account.account_type}</Table.Cell>
-<Table.Cell >{account.aadhar_no}</Table.Cell>
-<Table.Cell >{account.first_name}</Table.Cell>
-<Table.Cell >{account.last_name}</Table.Cell>
-<Table.Cell >{account.occupation}</Table.Cell>
-<Table.Cell><Button icon labelPosition='right' onClick={() => {navigate('/transaction', {state : account.account_no})}}>
-View
-<Icon name='right arrow' />
-</Button></Table.Cell>
-<Table.Cell>{account.status ? 
-  <Button value={account.account_no} negative onClick={handleDeactivate} >Deactivate</Button> : 
-  <Button value={account.account_no} positive onClick={handleActivate}>Activate</Button>
-}</Table.Cell>
+      <Table.Row>
+      <Table.Cell>{account.account_no}</Table.Cell>
+      <Table.Cell>{account.balance}</Table.Cell>
+      <Table.Cell >{account.account_type}</Table.Cell>
+      <Table.Cell >{account.aadhar_no}</Table.Cell>
+      <Table.Cell >{account.first_name}</Table.Cell>
+      <Table.Cell >{account.last_name}</Table.Cell>
+      <Table.Cell >{account.occupation}</Table.Cell>
+      <Table.Cell><Button icon labelPosition='right' onClick={() => {navigate('/transaction', {state : account.account_no})}}>
+      View
+      <Icon name='right arrow' />
+      </Button></Table.Cell>
+      <Table.Cell>{account.status ? 
+        <Button value={account.account_no} negative onClick={handleDeactivate} >Deactivate</Button> : 
+        <Button value={account.account_no} positive onClick={handleActivate}>Activate</Button>
+      }
+      
+    </Table.Cell>
 
 </Table.Row>
         

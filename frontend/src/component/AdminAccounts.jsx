@@ -9,15 +9,21 @@ import axios from 'axios';
 import Paper from '@mui/material/Paper';
 import InputBase from '@mui/material/InputBase';
 import Divider from '@mui/material/Divider';
+import { useNavigate } from 'react-router-dom';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import SearchIcon from '@mui/icons-material/Search';
 import DirectionsIcon from '@mui/icons-material/Directions';
 import AdminNavbar from './AdminNavbar.jsx'
 
+// navigate = useNavigate
+
 const AdminAccounts = () => {
 const[val,setVal]=useState("Enable")
+const [accounts, setAccounts] = useState([])
 const [search,setSearch]=useState("")
+const navigate = useNavigate();
+
 
     const datas=[
         {
@@ -66,6 +72,44 @@ const [search,setSearch]=useState("")
 //   })
 
 
+useEffect(() => {
+  const fetch = async () => {
+    try {
+      const resp = await axios.get('http://localhost:8080/api/admin/allAccounts', {headers:{'Authorization':`${localStorage.getItem('jwt')}`}})
+      console.log(resp.data)
+      setAccounts(resp.data)
+      console.log(accounts)
+  } catch (error) {
+      console.log(error)
+  }
+
+  }
+  fetch()
+}, [])
+
+const handleActivate =  async (event) => {
+  console.log(event.currentTarget.value)
+  try {
+    const resp = await axios.post('http://localhost:8080/api/admin/setStatus', {'status' : true, 'account_no' : event.currentTarget.value}, {
+      headers : {Authorization : localStorage.getItem('jwt')}
+    })
+    console.log(resp)
+  } catch (err) {
+
+  }
+}
+
+const handleDeactivate =  async (event) => {
+  console.log(event.currentTarget.value)
+  try {
+    const resp = await axios.post('http://localhost:8080/api/admin/setStatus', {'status' : false, 'account_no' : event.currentTarget.value}, {
+      headers : {Authorization : localStorage.getItem('jwt')}
+    })
+    console.log(resp)
+  } catch (err) {
+
+  }
+} 
 
   return (
     <div>
@@ -91,31 +135,43 @@ const [search,setSearch]=useState("")
 
     <Table.Header>
       <Table.Row>
-        <Table.HeaderCell>Account Number </Table.HeaderCell>
-        <Table.HeaderCell>User Id</Table.HeaderCell>
+      <Table.HeaderCell>Account</Table.HeaderCell>
         <Table.HeaderCell>Balance</Table.HeaderCell>
+        <Table.HeaderCell>Type</Table.HeaderCell>
+        <Table.HeaderCell>Aadhar Number</Table.HeaderCell>
+        <Table.HeaderCell>First Name</Table.HeaderCell>
+        <Table.HeaderCell>Last Name</Table.HeaderCell>
+        <Table.HeaderCell>Occupation</Table.HeaderCell>
+        <Table.HeaderCell>Transactions</Table.HeaderCell>
         <Table.HeaderCell>Status</Table.HeaderCell>
-        <Table.HeaderCell>Transaction History</Table.HeaderCell>
       </Table.Row>
     </Table.Header>
     <Table.Body>
     {
-      datas.filter((data)=>{
-        return search.toLowerCase()===''? data : data.acc.toLowerCase().includes(search)
-      }).map((data) => (
+      accounts.filter((data)=>{
+        return search.toLowerCase()===''? data : data.account_no.toString().toLowerCase().includes(search)
+      }).map((account) => (
         // <Table.Body>
-          <Table.Row>
-            <Table.Cell>{data.acc}</Table.Cell>
-            <Table.Cell>{data.abc}</Table.Cell>
-            <Table.Cell >2567</Table.Cell>
-            <Table.Cell><Button variant="contained" color="error">
-  Enable
-</Button></Table.Cell>
-            <Table.Cell ><Button icon labelPosition='right' >
-View
-<Icon name='right arrow' />
-</Button></Table.Cell>
-        </Table.Row>
+        <Table.Row>
+        <Table.Cell>{account.account_no}</Table.Cell>
+        <Table.Cell>{account.balance}</Table.Cell>
+        <Table.Cell >{account.account_type}</Table.Cell>
+        <Table.Cell >{account.aadhar_no}</Table.Cell>
+        <Table.Cell >{account.first_name}</Table.Cell>
+        <Table.Cell >{account.last_name}</Table.Cell>
+        <Table.Cell >{account.occupation}</Table.Cell>
+        <Table.Cell><Button icon labelPosition='right' onClick={() => {navigate('/transaction', {state : account.account_no})}}>
+        View
+        <Icon name='right arrow' />
+        </Button></Table.Cell>
+        <Table.Cell>{account.status ? 
+          <Button value={account.account_no} negative onClick={handleDeactivate} >Deactivate</Button> : 
+          <Button value={account.account_no} positive onClick={handleActivate}>Activate</Button>
+        }
+        
+      </Table.Cell>
+  
+  </Table.Row>
         // console.log(transaction)
       ))
     }
