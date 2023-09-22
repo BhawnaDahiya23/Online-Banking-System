@@ -15,6 +15,7 @@ import AdminAccounts from './component/AdminAccounts';
 import AdminTransaction from './component/AdminTransaction';
 import PerformTransaction from './component/PerformTransaction'
 import AllAccounts from './component/Admin/AllAccounts';
+import FormDialog from './component/Withdraw2';
 
 
 export default function App(){
@@ -34,6 +35,8 @@ export default function App(){
           <Route path='/adminaccounts' element={<AdminAccounts/>} />
           <Route path='/admintransaction' element={<AdminTransaction/>} />
           <Route path='/withdraw' element={<Withdraw/>} />
+          <Route path='/withdraw2' element={<FormDialog/>} />
+
           {/* <Route path='/adminaccounts' element={<AllAccounts />} /> */}
         </Routes>
       </Router>

@@ -16,16 +16,16 @@ export default function Withdraw() {
     // const [error, setError] = useState(null)
 
 
-    useEffect(() => {
-        const fetchAccountNumbers = async () => {
-            var getList = await axios.get('http://localhost:8080/api/account/viewAccountNumbers', {
-                headers : {Authorization : localStorage.getItem('jwt')}
-            }) 
-            console.log(getList.data)
-            setAccountList(getList.data)
-        }
-        fetchAccountNumbers();
-    }, [])
+    // useEffect(() => {
+    //     const fetchAccountNumbers = async () => {
+    //         var getList = await axios.get('http://localhost:8080/api/account/viewAccountNumbers', {
+    //             headers : {Authorization : localStorage.getItem('jwt')}
+    //         }) 
+    //         console.log(getList.data)
+    //         setAccountList(getList.data)
+    //     }
+    //     fetchAccountNumbers();
+    // }, [])
 
 
     const handleSubmit = async () => {
