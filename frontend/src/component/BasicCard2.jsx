@@ -6,7 +6,7 @@ import CardContent from '@mui/material/CardContent';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import InstallMobileIcon from '@mui/icons-material/InstallMobile';
-
+import { Link } from 'react-router-dom';
 
 const bull = (
   <Box
@@ -27,7 +27,7 @@ export default function BasicCard() {
         <InstallMobileIcon/>
         </Typography>
         <Typography variant="body2">
-        <h4>Enable Internet Banking</h4>
+        <h4>Withdraw Money</h4>
           <br />
         </Typography>
         <Typography sx={{ mb: 1.5 }} color="text.secondary">
@@ -36,7 +36,11 @@ export default function BasicCard() {
         
       </CardContent>
       <CardActions>
-        <Button size="small">Enable</Button>
+        <Link to='/withdraw'>
+
+        <Button size="small">Withdraw</Button>
+
+        </Link>
       </CardActions>
     </Card>
   );

@@ -48,7 +48,7 @@ const Transactions = () => {
             <Table.Cell>{transaction.from_acc}</Table.Cell>
             <Table.Cell>{transaction.amount}</Table.Cell>
             <Table.Cell >{transaction.trans_time}</Table.Cell>
-            <Table.Cell>{transaction.to_acc}</Table.Cell>
+            { transaction.to_acc != -1 ? <Table.Cell>{transaction.to_acc}</Table.Cell> : <Table.Cell>To Self</Table.Cell>}
             {transaction.status ? <Table.Cell positive>Successful</Table.Cell> : 
             <Table.Cell negative>Failed</Table.Cell>}
         </Table.Row>

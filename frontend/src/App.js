@@ -9,6 +9,7 @@ import Dashboard from './component/Dashboard';
 import AdminDashboard from './component/AdminDashboard';
 import Transactions from './component/Transactions';
 import Login2 from './component/Login2';
+import Withdraw from './component/Withdraw';
 import Accounts from './component/Accounts';
 import AdminAccounts from './component/AdminAccounts';
 import AdminTransaction from './component/AdminTransaction';
@@ -32,6 +33,7 @@ export default function App(){
           <Route path='/performTransaction' element={<PerformTransaction/>} />
           <Route path='/adminaccounts' element={<AdminAccounts/>} />
           <Route path='/admintransaction' element={<AdminTransaction/>} />
+          <Route path='/withdraw' element={<Withdraw/>} />
           {/* <Route path='/adminaccounts' element={<AllAccounts />} /> */}
         </Routes>
       </Router>

@@ -6,11 +6,11 @@ import { useNavigate } from "react-router-dom";
 const dummy = [1,2]
 
 
-export default function PerformTransaction() {
+export default function Withdraw() {
     
     const [fromAccount, setFromAccount] = useState('')
     const [amount, setAmount] = useState('')
-    const [toAccount, setToAccount] = useState('')
+    // const [toAccount, setToAccount] = useState('')
     const [accountList, setAccountList] = useState([])
 
     // const [error, setError] = useState(null)
@@ -32,20 +32,20 @@ export default function PerformTransaction() {
         try {
             var body = {
             "from_acc" : fromAccount,
-            "to_acc" : toAccount,
+            // "to_acc" : toAccount,
             "amount" : amount 
             };
             console.log(body); 
-            var resp = await axios.post('http://localhost:8080/api/transactions/saveTransactions', body, {
+            var resp = await axios.post('http://localhost:8080/api/transactions/withdrawal', body, {
                 headers : {Authorization : localStorage.getItem('jwt')}
             })
             console.log(resp.data)
-            alert('TRANSACTION SUCCESSFUL')
+            alert('WITHDRAW SUCCESSFUL!')
             setAmount('')
-            setToAccount('')
+            // setToAccount('')
         } catch(error) {
-            alert(error)
-            console.log('error ' + error.data)
+            alert('WITHDRAW FAILED!')
+            console.log(error)
         }
         
     }
@@ -71,12 +71,6 @@ export default function PerformTransaction() {
             <input onChange={(event) => {
                 console.log(event.target.value);
                 setAmount(event.target.value);
-            }} type="number"/>
-
-
-            <input onChange={(event) => {
-                console.log(event.target.value);
-                setToAccount(event.target.value);
             }} type="number"/>
 
             <button onClick={() => handleSubmit()}/>
