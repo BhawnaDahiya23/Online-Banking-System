@@ -40,7 +40,7 @@ const friendOptions = [
    
   ]
 
-export default function FormDialog() {
+export default function PerformT() {
 
 
 const navigate = useNavigate();
@@ -49,6 +49,7 @@ const navigate = useNavigate();
   const[value,setValue]=React.useState(0);
   const[acc,setAcc]=React.useState();
   const[status,setStatus]=React.useState(false);
+  const [toAcc, setToAcc] = React.useState();
   const [accountList, setAccountList] = React.useState([]);
   
   useEffect(() => {
@@ -88,22 +89,24 @@ const navigate = useNavigate();
     try {
         var body = {
         "from_acc" : acc.value,
-        "amount" : Number(value)
+        "to_acc" : Number(toAcc),
+        "amount" : Number(value),
+
         };
         console.log(body); 
-        var resp = await axios.post('http://localhost:8080/api/transactions/withdrawal', body, {
+        var resp = await axios.post('http://localhost:8080/api/transactions/saveTransactions', body, {
             headers : {Authorization : localStorage.getItem('jwt')}
         })
         console.log(resp.data)
-        alert('WITHDRAWL SUCCESSFUL')
+        alert('TRANSACTION SUCCESSFUL')
         console.log(value)
         // console.log(acc.value)
         setOpen(false)
         setStatus(true)
         navigate('/dashboard')
     } catch(error) {
-        alert(error)
-        console.log('error ' + error.data)
+        console.log('error ' + error.response.data.message)
+        alert('TRANSACTION FAILED ' + error.response.data.message)
     }
     
 }
@@ -138,7 +141,17 @@ const navigate = useNavigate();
 
 </div>
 <br/>
-
+<TextField
+            autoFocus
+            margin="dense"
+            id="name"
+            label="Select Account"
+            type="number"
+            fullWidth
+            variant="standard"
+            value={toAcc}
+            onChange={(event) => setToAcc(event.target.value)}
+          />
 
           <TextField
             autoFocus
@@ -154,7 +167,7 @@ const navigate = useNavigate();
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose}>Cancel</Button>
-          <Button onClick={handleSubmit}>Withdraw</Button>
+          <Button onClick={handleSubmit}>Perform Transaction</Button>
         </DialogActions>
       </Dialog>
     </div>

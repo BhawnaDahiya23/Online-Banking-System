@@ -44,8 +44,8 @@ export default function PerformTransaction() {
             setAmount('')
             setToAccount('')
         } catch(error) {
-            alert(error)
-            console.log('error ' + error.data)
+            console.log('error ' + error.response.data.message)
+            alert('TRANSACTION FAILED ' + error.response.data.message)
         }
         
     }

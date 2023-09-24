@@ -36,7 +36,7 @@ export default function BasicCard() {
         
       </CardContent>
       <CardActions>
-        <Link to='/withdraw'>
+        <Link to='/withdraw2'>
 
         <Button size="small">Withdraw</Button>
 
