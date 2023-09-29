@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import Navbar from "./navbar";
+import Navbar1 from "./Navbar1.js";
 import './Style.css'
 import { useNavigate } from 'react-router-dom';
 import axios from "axios";
@@ -68,31 +68,29 @@ export default function Register(){
     const [errors, setErrors] = useState({});
     return(
         <>
-        <div><Navbar/></div>
-        <div className="main">
-        <div className="container">
-            <form className="form">
-            <h1><center>Registeration Form</center></h1>
+        <div><Navbar1/></div>
+        <div className="form">
+            <form>
+            <h1>Registration Form</h1>
                 <div>
-                <label className="label">Username</label>
-                <input className="input" type="text" name="username" value={values.username} onChange={handleChange}/>
+                <label>Username</label>
+                <input type="text" name="username" value={values.username} onChange={handleChange}/>
                 {errors.username && <p className="error">{errors.username}</p>}
                 </div>
                 <div>
-                <label className="label">Set Login Password:</label>
-                <input className="input" type="password" name="set_login_password" value={values.set_login_password} onChange={handleChange}/>
+                <label>Set Login Password:</label>
+                <input type="password" name="set_login_password" value={values.set_login_password} onChange={handleChange}/>
                 {/* {errors.confirm_login_password && <p className="error">{errors.confirm_login_password}</p>} */}
                 </div>
                 <div>
-                <label className="label">Confirm Login Password:</label>
-                <input className="input" type="password" name="confirm_login_password" value={values.confirm_login_password} onChange={handleChange}/>
+                <label>Confirm Login Password:</label>
+                <input type="password" name="confirm_login_password" value={values.confirm_login_password} onChange={handleChange}/>
                 {errors.confirm_login_password && <p className="error">{errors.confirm_login_password}</p>}
                 </div>
                 <div>
                     <button onClick={handleFormSubmit}>Submit</button>
                 </div>
             </form>
-        </div>
         </div>
         </>
     )

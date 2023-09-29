@@ -1,11 +1,10 @@
-import React, { useState } from "react";
-import Navbar from "./navbar";
+import React, { useState,useEffect } from "react";
+import Navbar1 from "./Navbar1";
 import './Style.css'
 import { useNavigate } from 'react-router-dom';
 import axios from "axios";
 
 // const server = 'localhost:8080/api'
-
 
 export default function Login(){
 
@@ -13,6 +12,7 @@ export default function Login(){
         username:'',
         password:'',
     });
+    const[userToken,setUserToken]=useState("")
 
     let navigate = useNavigate ();
 
@@ -22,6 +22,8 @@ export default function Login(){
             [event.target.name]: event.target.value,
         })
     };
+
+    
     const handleFormSubmit =  async (event) => {
         event.preventDefault();
         let er=validation(values)
@@ -42,7 +44,11 @@ export default function Login(){
             localStorage.setItem('jwt', resp.data.tokenType + resp.data.accessToken)
             console.log(localStorage.getItem('jwt'))
             console.log(resp.status)
-            navigate('/newaccount')
+            if(values.username == "admin"){
+                navigate('/admindashboard')
+                return;
+            }
+            navigate('/dashboard')
         } catch (error) {
             console.log(error)
             if(error.response.status) setErrors({password: 'wrong password'})
@@ -74,26 +80,24 @@ export default function Login(){
 
     return(
         <>
-        <div ><Navbar/></div>
-        <div className="main">
-        <div className="container">
-            <form className="form" >
-                <h1><center>Login</center></h1>
-                <div>
+        <div><Navbar1/></div>
+        <div className="form">
+            <form >
+                <h1>Login</h1>
+                <div className="labels">
                 <label className="label">Username:</label>
-                <input className="input" type="text" name="username" value={values.username} onChange={handleChange}/>
+                <input type="text" name="username" value={values.username} onChange={handleChange}/>
                 {errors.username && <p className="error">{errors.username}</p>}
                 </div>
-                <div>
-                <label className="label">Password:</label>
-                <input className="input" type="password" name="password" value={values.password} onChange={handleChange}/>
+                <div className="labels">
+                <label>Password:</label>
+                <input type="password" name="password" value={values.password} onChange={handleChange}/>
                 {errors.password && <p className="error">{errors.password}</p>}
                 </div>
                 <div>
                     <button onClick={handleFormSubmit}>Login</button>
                 </div>
             </form>
-        </div>
         </div>
         </>
     )

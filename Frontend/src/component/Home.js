@@ -1,24 +1,23 @@
 import React from 'react'
-import Navbar from './navbar';
+import Navbar1 from './Navbar1';
 import { Link } from 'react-router-dom';
-import { useNavigate } from 'react-router-dom';
 
 import './Style.css'
 
 
 function Home(){
-    const Navigate = useNavigate();
+    
     return(
         <>
         <div>
-            <Navbar/>
+            <Navbar1/>
         </div>
-        <div className='home-main'>
+        <div>
             <ul>
-                <li><button onClick={()=>Navigate('/login')}>Login</button></li>
-                <li><button onClick={()=>Navigate('/register')}>Register</button></li>
-                <li><button onClick={()=>Navigate('/newaccount')}>Open Account</button></li>
                 
+                <li><u><Link to='/login'>Login</Link></u></li>
+                <li><u><Link to='/register'>Register</Link></u></li>
+                <li><u><Link to='/newaccount'>Open Account</Link></u></li>
             </ul>
         </div>
 

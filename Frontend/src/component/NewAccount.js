@@ -1,54 +1,51 @@
-import React, {useState} from "react";
-import Navbar from "./navbar";
+import React,{useState,useEffect} from "react";
+import Navbar1 from "./Navbar1.js";
 import './Style.css'
+import { useNavigate } from 'react-router-dom';
+import axios from "axios";
 
 
 export default function NewAccount(){
+    const[userToken,setUserToken]=useState("")
     const [values, setValues] = useState({
-        acc_type:'',
+        account_type:'Saving',
         balance:'',
-        First_name:'',
-        Last_name:'',
-        aadhar_number:'',
-        address:'',
-        Occupation:'',
-        mobile:'',
-        email:'',        
-        dob:'',
+        first_name:"",
+        last_name:"",
+        aadhar_no:"",
+        address:"",
+        occupation:"",
+        emailId:"",
+        mobile:"",
+        dob:"",
+
     });
-    const handleChange = (event) => {
-        setValues({
-            ...values,
-            [event.target.name]: event.target.value,
-        })
-    };
-    const handleFormSubmit =(event) => {
-        event.preventDefault();
-        setErrors(validation(values));
-    };
+
+
+    
     const validation = (values) => {
         let errors = {};
-        if(values.acc_type == "Select account type"){
+        if(values.account_type == "Select account type"){
             errors.acc_type="Account type is required"
         }
         if(!values.balance){
             errors.balance="Balance is required"
         }
-        if(!values.First_name){
+        if(!values.first_name){
             errors.First_name="First name is required"
         }
-        if(!values.Last_name){
+        if(!values.last_name){
             errors.Last_name="Last name is required"
         }
-        if(!values.aadhar_number){
+        if(!values.aadhar_no){
             errors.aadhar_number="Aadhar card number is required and must be 12 digits."
-        } else if(values.aadhar_number !== 12){
+        } else if(values.aadhar_no.length !== 12){
             errors.aadhar_number="Aadhar acrd number must be 12 digits."
         }
         if(!values.address){
             errors.address="Address is required."
         }
-        if(!values.Occupation){
+        if(!values.occupation){
             errors.Occupation="Occupation is required."
         }
         if(!values.mobile){
@@ -56,9 +53,9 @@ export default function NewAccount(){
         }else if(values.mobile.length !== 10){
             errors.mobile="Mobile number should be 10 digits."
         }
-        if(!values.email){
+        if(!values.emailId){
             errors.email="Email is required"
-        }else if(!/\S+@\S+\.\S+/.test(values.email)){
+        }else if(!/\S+@\S+\.\S+/.test(values.emailId)){
             errors.email="Email is invalid"
         }    
         if(!values.dob){
@@ -68,17 +65,72 @@ export default function NewAccount(){
         return errors;
     };
     const [errors, setErrors] = useState({});
+
+    let navigate = useNavigate ();
+    const config={
+        'Authorization':`${userToken}`,
+        'Accept' : 'application/json',
+        'Content-Type': 'application/json'
+
+    };
+    const bodyParameters={
+        key:"value"
+    };
+
+    const handleChange = (event) => {
+        setValues({
+            ...values,
+            [event.target.name]: event.target.value,
+        })
+    };
+    const handleSubmit = async (event) => {
+        event.preventDefault();
+        console.log(values)
+        console.log(userToken)
+
+        let er=validation(values)
+        console.log("in handle forms: " + values)
+        if(er.hasOwnProperty('acc_type') || er.hasOwnProperty('balance') || er.hasOwnProperty('First_name') || er.hasOwnProperty('Last_name') || er.hasOwnProperty('aadhar_number') || er.hasOwnProperty('address')  || er.hasOwnProperty('Occupation')  || er.hasOwnProperty('mobile')|| er.hasOwnProperty('email')|| er.hasOwnProperty('dob'))
+        {
+            console.log('er is true')
+            setErrors(er);
+            return;
+        }
+        console.log('No error')
+
+
+        try {
+            const resp = await axios.post('http://localhost:8080/api/account/saveAccount', values,{headers:{'Authorization':`${userToken}`,"Access-Control-Allow-Origin": "*"}})
+            console.log(resp)
+            navigate('/dashboard')
+        } catch (error) {
+            console.log(error)
+        }
+    };
+
+
+    useEffect(() => {
+        if(localStorage.getItem('jwt')=== null)
+        {
+            navigate('/login')
+        }
+        else{
+            setUserToken(localStorage.getItem('jwt'))
+        }
+      
+    }, [])
+
+
+    
     return(
         <>
-        <div id="navbar"><Navbar/></div>
-        <div className="main">
-        <div className="container">
-            <form className="form">
-            <h1><center>Open a New Account</center></h1>
+        <div><Navbar1/></div>
+        <div className="form">
+            <form>
+            <h1>Open a New Account</h1>
                 <div>
-                <label className="label">Account type:</label>
-                <select name="acc_type" id="acc_type">
-                    <option  value="Select_account">Select account type </option>
+                <label>Account type:</label>
+                <select name="account_type" id="acc_type" onChange={handleChange}>
                     <option value="Saving">Saving</option>
                     <option value="Salary">Salary</option>
                     <option value="Current">Current</option>
@@ -86,55 +138,55 @@ export default function NewAccount(){
                 {errors.acc_type && <p className="error">{errors.acc_type}</p>}
                 </div>
                 <div>
-                <label className="label">Balance:</label>
-                <input className="input"type="number" name="balance"/>
+                <label>Balance:</label>
+                <input type="number" name="balance" onChange={handleChange}/>
                 {errors.balance && <p className="error">{errors.balance}</p>}
                 </div>
                 <div>
-                <label className="label">First Name:</label>
-                <input className="input" type="text" name="First_name" value={values.First_name} onChange={handleChange}/>
+                <label>First Name:</label>
+                <input type="text" name="first_name" onChange={handleChange}/>
                 {errors.First_name && <p className="error">{errors.First_name}</p>}
                 </div>
                 <div>
-                <label className="label">Last Name:</label>
-                <input className="input" type="text" name="Last_name" value={values.Last_name} onChange={handleChange}/>
+                <label>Last Name:</label>
+                <input type="text" name="last_name" onChange={handleChange}/>
                 {errors.Last_name && <p className="error">{errors.Last_name}</p>}
                 </div> 
                 <div>
-                <label className="label">Aadhar Card Number:</label>
-                <input className="input" type="number" name="aadhar_number" value={values.aadhar_number} onChange={handleChange}/>
+                <label>Aadhar Card Number:</label>
+                <input type="number" name="aadhar_no"onChange={handleChange}/>
                 {errors.aadhar_number && <p className="error">{errors.aadhar_number}</p>}
                 </div>
                 <div>
-                <label className="label">Address</label>
-                <input className="input" type="text" name="address"/>
+                <label>Address</label>
+                <input type="text" name="address" onChange={handleChange}/>
                 {errors.address && <p className="error">{errors.address}</p>}
                 </div>
                 <div>
-                <label className="label">Occupation</label>
-                <input className="input" type="text" name="Occupation"/>
+                <label>Occupation</label>
+                <input type="text" name="occupation" onChange={handleChange}/>
                 {errors.Occupation && <p className="error">{errors.Occupation}</p>}
                 </div>
                 <div>
-                <label className="label">Mobile Number:</label>
-                <input className="input" type="number" name="mobile" value={values.mobile} onChange={handleChange}/>
+                <label>Mobile No:</label>
+                <input type="text" name="mobile" onChange={handleChange}/>
                 {errors.mobile && <p className="error">{errors.mobile}</p>}
                 </div> 
                 <div>
-                <label className="label">Email ID:</label>
-                <input className="input" type="email" name="email" value={values.email} onChange={handleChange}/>
+                <label>Email ID:</label>
+                <input type="text" name="emailId" onChange={handleChange}/>
                 {errors.email && <p className="error">{errors.email}</p>}
                 </div>
                 <div>
-                <label className="label">Date of Birth:</label>
-                <input className="input" type="date" name="dob" value={values.dob} onChange={handleChange}/>
+                <label>Date of Birth</label>
+                <input type="date" name="dob" onChange={handleChange}/>
                 {errors.dob && <p className="error">{errors.dob}</p>}
                 </div>
                 <div>
-                    <button onClick={handleFormSubmit}>Submit</button>
+                    <button onClick={handleSubmit}>Submit</button> <br></br> <br></br>
+                    <button onClick={() => navigate('/dashboard')}>Skip this Section</button>
                 </div>
             </form>
-        </div>
         </div>
         </>
     )
