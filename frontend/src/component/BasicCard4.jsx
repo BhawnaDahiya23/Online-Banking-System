@@ -38,7 +38,7 @@ export default function BasicCard4() {
       </CardContent>
       <CardActions>
         {/* <Button onClick={() => navigate('/')} size="small">Perform</Button> */}
-        <Link to='/performTransaction' size = "small">Perform</Link>
+        <Link to='/performTransaction2' size = "small">Perform</Link>
       </CardActions>
     </Card>
   );

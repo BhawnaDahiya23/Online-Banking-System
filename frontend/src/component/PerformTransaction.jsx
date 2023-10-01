@@ -7,6 +7,8 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import { Dropdown } from 'semantic-ui-react'
+import Snackbar from '@mui/material/Snackbar';
+import MuiAlert from '@mui/material/Alert';
 import Alert from '@mui/material/Alert';
 import Stack from '@mui/material/Stack';
 import './withdraw.css'
@@ -51,7 +53,10 @@ const navigate = useNavigate();
   const[status,setStatus]=React.useState(false);
   const [toAcc, setToAcc] = React.useState();
   const [accountList, setAccountList] = React.useState([]);
-  
+  const [balance, setBalance] = React.useState(-1);
+  const [error, setError] = React.useState(null);
+  const [success, setSucc] = React.useState(false);
+
   useEffect(() => {
     const fetchAccountNumbers = async () => {
         var getList = await axios.get('http://localhost:8080/api/account/viewAccountNumbers', {
@@ -82,6 +87,8 @@ const navigate = useNavigate();
   };
 
   const handleClose = () => {
+    console.log('closing')
+    navigate('/dashboard')
     setOpen(false);
   };
 
@@ -98,28 +105,68 @@ const navigate = useNavigate();
             headers : {Authorization : localStorage.getItem('jwt')}
         })
         console.log(resp.data)
-        alert('TRANSACTION SUCCESSFUL')
+        // alert('TRANSACTION SUCCESSFUL')
         console.log(value)
         // console.log(acc.value)
-        setOpen(false)
-        setStatus(true)
-        navigate('/dashboard')
-    } catch(error) {
-        console.log('error ' + error.response.data.message)
-        alert('TRANSACTION FAILED ' + error.response.data.message)
+        // setOpen(false)
+        // setStatus(true)
+
+        setSucc(true)
+        
+    } catch(e) {
+        console.log('error ' + e.response.data.message)
+        setError(e.response.data.message);
+        // alert('TRANSACTION FAILED ' + error.response.data.message)
     }
     
 }
 
+  const handleCloseBalance = () => {
+    setBalance(-1);
+  }
 
+  const handleSuccess = () => {
+    setSucc(false)
+  }
+
+  const handleError = () => {
+    setError(null)
+  }
+
+  const handleSetAccount = async (e, {value}) => {
+   
+  
+    setAcc({value})
+
+    try {  
+      // 
+
+      var resp = await axios.get('http://localhost:8080/api/account/viewBalance/' + value, {
+        headers : { Authorization : localStorage.getItem('jwt') }
+
+      })
+      
+      console.log(resp.data);
+      setBalance(resp.data)
+    }
+
+    catch(error) {
+      console.log(error)
+    }
+
+
+    // alert("BALANCE REMAINING " + resp.data)
+   
+    // setBalance()
+  }
 
   return (
     <div>
       <Dialog open={open} onClose={handleClose}>
-        <DialogTitle>WithDraw</DialogTitle>
+        <DialogTitle>Perform Transaction</DialogTitle>
         <DialogContent>
           <DialogContentText>
-           Enter Below the Details in order to Withdraw the amount.
+           Enter Below the Details in order to transfer an amount.
           </DialogContentText>
           <br/>
           <Dropdown
@@ -127,8 +174,28 @@ const navigate = useNavigate();
     fluid
     selection
     options={accountList}
-    onChange={(e,{value}) => setAcc({value})}
+    onChange={handleSetAccount}
   />
+
+<Snackbar open={balance != -1} autoHideDuration={6000} onClose={handleCloseBalance}>
+        <Alert onClose={handleCloseBalance} severity="info" sx={{ width: '100%' }}>
+          The balance for this account is ₹{balance}
+        </Alert>
+    </Snackbar>
+
+    <Snackbar open={error !== null} autoHideDuration={6000} onClose={handleError}>
+        <Alert onClose={handleError} severity="error" sx={{ width: '100%' }}>
+          {error}
+        </Alert>
+    </Snackbar>
+
+    <Snackbar open={success} autoHideDuration={6000} onClose={handleSuccess}>
+        <Alert severity="success" sx={{ width: '100%' }} onClose={handleSuccess}>
+          Transaction Successful
+        </Alert>
+
+    </Snackbar>
+
 <br/>
 <div classNmae="bb">
 <Button variant="contained" classNmae="bb" value={100} onClick={handleClick}>₹100</Button>
